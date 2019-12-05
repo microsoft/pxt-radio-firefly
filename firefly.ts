@@ -4,8 +4,9 @@
 namespace radio {
     const RADIO_ID_FIREFLY = 2100;
     const RADIO_FIREFLY_REMOTE_TICK = 1;
-    const RADIO_FIREFLY_SELF_TICK = 1;
-    const RADIO_FIREFLY_SYNC = 2;
+    const RADIO_FIREFLY_SELF_TICK = 2;
+    const RADIO_FIREFLY_CORRECTION_TICK = 3;
+    const RADIO_FIREFLY_SYNC = 4;
 
     const CLOCK_PERIODS_2 = 3;
     const CLOCK_PERIODS = 1 << CLOCK_PERIODS_2;
@@ -19,8 +20,10 @@ namespace radio {
     let lastFireflyNeighborsTicks = 0;
 
     function handleRemoteTick() {
-        if (fireflyTicks < CLOCK_PERIODS)
+        if (fireflyTicks < CLOCK_PERIODS) {
             fireflyTicks += 1;
+            control.raiseEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_CORRECTION_TICK);
+        }
         fireflyNeighborsTicks += 1;
     }
 
@@ -35,15 +38,16 @@ namespace radio {
             basic.pause(fireflyTickInterval * 2)
             // reset the clock
             fireflyTicks = 0
+            // keep track of how many neighbors were detected
             lastFireflyNeighborsTicks = fireflyNeighborsTicks;
             fireflyNeighborsTicks = 0
         } else {
             // raise self tick
             radio.raiseEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_SELF_TICK);
             // wait for tick
-            basic.pause(fireflyTickInterval)
+            basic.pause(fireflyTickInterval);
             // increment the clock
-            fireflyTicks += 1
+            fireflyTicks += 1;
         }
     }
 
@@ -75,6 +79,14 @@ namespace radio {
     export function onFireflyTick(handler: () => void) {
         init();
         control.onEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_SELF_TICK, handler);
+    }
+
+    /**
+     * Raise an even the firefly tick is corrected
+     */
+    export function onFireflyCorrection(handler: () => void) {
+        init();
+        control.onEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_CORRECTION_TICK, handler);
     }
 
     /**
