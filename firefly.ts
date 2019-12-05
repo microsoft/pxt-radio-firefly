@@ -12,40 +12,49 @@ namespace radio {
 
     // the clock ticker
     let fireflyEnabled = false;
-    let fireflyInterval = 400;
+    let fireflyInterval = 800;
     let fireflyTickInterval = fireflyInterval >> CLOCK_PERIODS_2;
     let fireflyTicks = 0
     let fireflyNeighborsTicks = 0;
+    let lastFireflyNeighborsTicks = 0;
+
+    function handleRemoteTick() {
+        if (fireflyTicks < CLOCK_PERIODS)
+            fireflyTicks += 1;
+        fireflyNeighborsTicks += 1;
+    }
+
+    function handleTick() {
+        // if clock hits noon, flash the screen
+        if (fireflyTicks >= CLOCK_PERIODS) {
+            // notify neighbors
+            radio.raiseEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_REMOTE_TICK);
+            // run event
+            control.raiseEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_SYNC);
+            // wait for 2 ticks
+            basic.pause(fireflyTickInterval * 2)
+            // reset the clock
+            fireflyTicks = 0
+            lastFireflyNeighborsTicks = fireflyNeighborsTicks;
+            fireflyNeighborsTicks = 0
+        } else {
+            // raise self tick
+            radio.raiseEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_SELF_TICK);
+            // wait for tick
+            basic.pause(fireflyTickInterval)
+            // increment the clock
+            fireflyTicks += 1
+        }
+    }
 
     function init() {
         if (fireflyEnabled) return;
 
         fireflyEnabled = true;
-        control.onEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_REMOTE_TICK, function () {
-            if (fireflyTicks < CLOCK_PERIODS)
-                fireflyTicks += 1;
-            fireflyNeighborsTicks += 1;
-        })
+        control.onEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_REMOTE_TICK, handleRemoteTick)
         control.inBackground(function () {
-            while (fireflyEnabled) {
-                // if clock hits noon, flash the screen
-                if (fireflyTicks >= CLOCK_PERIODS) {
-                    // notify neighbors
-                    radio.raiseEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_REMOTE_TICK);
-                    // run event
-                    control.raiseEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_SYNC);
-                    // wait for 2 ticks
-                    basic.pause(fireflyTickInterval * 2)
-                    // reset the clock
-                    fireflyTicks = 0
-                    fireflyNeighborsTicks = 0
-                } else {
-                    // wait for tick
-                    basic.pause(fireflyTickInterval)
-                    // increment the clock
-                    fireflyTicks += 1
-                }
-            }
+            while (fireflyEnabled)
+                handleTick();
         })
     }
 
@@ -98,6 +107,6 @@ namespace radio {
     //% weight=48
     export function fireflyNeighbors() {
         init();
-        return fireflyNeighborsTicks >> CLOCK_PERIODS_2;
+        return lastFireflyNeighborsTicks >> CLOCK_PERIODS_2;
     }
 }
