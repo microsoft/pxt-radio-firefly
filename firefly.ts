@@ -66,7 +66,7 @@ namespace radio {
      * Registers code to run when neigbhoring radios are synched
      */
     //% help=radio/on-firefly-sync
-    //% blockId=radio_onfireflysync block="radio on firefly sync"
+    //% blockId=radio_onfireflysync block="on radio firefly sync"
     //% weight=50
     export function onFireflySync(handler: () => void) {
         init();
@@ -76,6 +76,8 @@ namespace radio {
     /**
      * Raises when an internal tick is raised
      */
+    //% weight=49
+    //% blockId=radio_onfireflytick block="on radio firefly tick"
     export function onFireflyTick(handler: () => void) {
         init();
         control.onEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_SELF_TICK, handler);
@@ -84,6 +86,8 @@ namespace radio {
     /**
      * Raise an even the firefly tick is corrected
      */
+    //% weight=49
+    //% blockId=radio_onfireflytick block="on radio firefly correction"
     export function onFireflyCorrection(handler: () => void) {
         init();
         control.onEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_CORRECTION_TICK, handler);
