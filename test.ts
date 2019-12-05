@@ -1,4 +1,4 @@
-// tests go here; this will not be compiled when this package is used as an extension.
+radio.setFireflyInterval(1000)
 radio.onFireflySync(function () {
     console.log('ping')
 })
