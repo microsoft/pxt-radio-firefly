@@ -20,11 +20,11 @@ namespace radio {
     let lastFireflyNeighborsTicks = 0;
 
     function handleRemoteTick() {
+        fireflyNeighborsTicks += 1;
         if (fireflyTicks < CLOCK_PERIODS) {
             fireflyTicks += 1;
             control.raiseEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_CORRECTION_TICK);
         }
-        fireflyNeighborsTicks += 1;
     }
 
     function handleTick() {
@@ -117,12 +117,12 @@ namespace radio {
     }
 
     /**
-     * Gets an estimage of the numer of neighbords
+     * Gets the number of remote ticks received
     */
-    //% blockId=radio_fireflyneighbors block="radio firefly neighbors"
+    //% blockId=radio_fireflyneighbors block="radio firefly remote ticks"
     //% weight=48
-    export function fireflyNeighbors() {
+    export function fireflyRemoteTicks() {
         init();
-        return lastFireflyNeighborsTicks >> CLOCK_PERIODS_2;
+        return lastFireflyNeighborsTicks;
     }
 }
