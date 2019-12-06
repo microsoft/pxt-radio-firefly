@@ -110,7 +110,7 @@ namespace firefly {
     /**
      * Gets the tick index in the firefly clock.
      */
-    //% blockId=radio_fireflytick blokc="firefly ticks"
+    //% blockId=radio_fireflytick block="firefly ticks"
     //% weight=48
     export function ticks() {
         init();
@@ -121,7 +121,7 @@ namespace firefly {
      * Gets the number of remote ticks received
     */
     //% blockId=radio_fireflyneighbors block="firefly remote ticks"
-    //% weight=48
+    //% weight=47
     export function remoteTicks() {
         init();
         return lastFireflyNeighborsTicks;
