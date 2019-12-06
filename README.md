@@ -45,6 +45,19 @@ You can change the interval of the sync event using this block.
 firefly.setInterval(1000)
 ```
 
+### ``hasNeighbors``
+
+Indicates if any signal was received from neighboring devices
+during the clock cycle.
+
+```blocks
+firefly.onSync(function () {
+    if (firefly.hasNeighbors()) {
+        console.log('sync')
+    }
+})
+```
+
 ## Metadata
 
 * for PXT/microbit

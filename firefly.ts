@@ -120,12 +120,12 @@ namespace firefly {
     }
 
     /**
-     * Gets the number of remote ticks received
-    */
-    //% blockId=radio_fireflyneighbors block="firefly remote ticks"
+     * Indicates if any signal for other device was detected.
+     */
+    //% blockId=radio_hasneibors block="firefly has neighbors"
     //% weight=47
-    export function remoteTicks() {
+    export function hasNeighbors() {
         init();
-        return lastFireflyNeighborsTicks;
+        return lastFireflyNeighborsTicks > 0;
     }
 }
