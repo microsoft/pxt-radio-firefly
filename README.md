@@ -44,3 +44,7 @@ You can change the interval of the sync event using this block.
 ```blocks
 radio.setFireflyInterval(1000)
 ```
+
+## Metadata
+
+* for PXT/microbit
