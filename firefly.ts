@@ -2,6 +2,8 @@
  * Decentralized synchronization of messages over radio
  * similar to Fireflies in the wild.
  */
+//% weight=95
+//% color=#E3008C icon="\uf012"
 namespace firefly {
     const RADIO_ID_FIREFLY = 2100;
     const RADIO_FIREFLY_REMOTE_TICK = 1;
