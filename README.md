@@ -5,44 +5,44 @@ devices together.
 
 ## Usage
 
-### ``onFireflySync`` 
+### ``onSync`` 
 
-Use the ``radio.onFireflySync`` event that is raised
+Use the ``firefly.onSync`` event that is raised
 on each clock cycle.
 
 ```blocks
-radio.onFireflySync(function () {
+firefly.onSync(function () {
     console.log('sync')
 })
 ```
 
-### ``onFireflyTick`` 
+### ``onTick`` 
 
-Use the ``radio.onFireflyTick`` event to run on each tick
+Use the ``firefly.onTick`` event to run on each tick
 
 ```blocks
-radio.onFireflyTick(function () {
+firefly.onTick(function () {
     console.log('tick')
 })
 ```
 
-### ``onFireflyTick`` 
+### ``onCorrection`` 
 
-Use the ``radio.onFireflyCorrection`` event to run 
+Use the ``firefly.onCorrection`` event to run 
 when a tick correction was applied
 
 ```blocks
-radio.onFireflyCorrection(function () {
+firefly.onCorrection(function () {
     console.log('correction')
 })
 ```
 
-### ``setFireflyInterval``
+### ``setInterval``
 
 You can change the interval of the sync event using this block.
 
 ```blocks
-radio.setFireflyInterval(1000)
+firefly.setInterval(1000)
 ```
 
 ## Metadata

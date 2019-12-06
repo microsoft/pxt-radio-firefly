@@ -1,4 +1,8 @@
-namespace radio {
+/**
+ * Decentralized synchronization of messages over radio
+ * similar to Fireflies in the wild.
+ */
+namespace firefly {
     const RADIO_ID_FIREFLY = 2100;
     const RADIO_FIREFLY_REMOTE_TICK = 1;
     const RADIO_FIREFLY_SELF_TICK = 2;
@@ -62,10 +66,9 @@ namespace radio {
     /**
      * Registers code to run when neigbhoring radios are synched
      */
-    //% help=radio/on-firefly-sync
-    //% blockId=radio_onfireflysync block="on radio firefly sync"
+    //% blockId=radio_onfireflysync block="on firefly sync"
     //% weight=50
-    export function onFireflySync(handler: () => void) {
+    export function onSync(handler: () => void) {
         init();
         control.onEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_SYNC, handler);
     }
@@ -74,8 +77,8 @@ namespace radio {
      * Raises when an internal tick is raised
      */
     //% weight=49
-    //% blockId=radio_onfireflytick block="on radio firefly tick"
-    export function onFireflyTick(handler: () => void) {
+    //% blockId=radio_onfireflytick block="on firefly tick"
+    export function onTick(handler: () => void) {
         init();
         control.onEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_SELF_TICK, handler);
     }
@@ -84,8 +87,8 @@ namespace radio {
      * Raise an even the firefly tick is corrected
      */
     //% weight=49
-    //% blockId=radio_onfireflytick block="on radio firefly correction"
-    export function onFireflyCorrection(handler: () => void) {
+    //% blockId=radio_onfireflytick block="on firefly correction"
+    export function onCorrection(handler: () => void) {
         init();
         control.onEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_CORRECTION_TICK, handler);
     }
@@ -95,10 +98,10 @@ namespace radio {
      * @param millis millisecond between synchronizations, eg: 1000
      */
     //% help=radio/set-firefly-interval
-    //% blockId=radio_setfireflyinterval block="radio set firefly interval $millis (ms)"
+    //% blockId=radio_setfireflyinterval block="set firefly interval $millis (ms)"
     //% millis.shadow=timePicker
     //% weight=49
-    export function setFireflyInterval(millis: number) {
+    export function setInterval(millis: number) {
         init();
         fireflyInterval = Math.max(40, millis);
         fireflyTickInterval = fireflyInterval >> CLOCK_PERIODS_2;
@@ -107,9 +110,9 @@ namespace radio {
     /**
      * Gets the tick index in the firefly clock.
      */
-    //% blockId=radio_fireflytick blokc="radio firefly tick"
+    //% blockId=radio_fireflytick blokc="firefly ticks"
     //% weight=48
-    export function fireflyTick() {
+    export function ticks() {
         init();
         return fireflyTicks;
     }
@@ -117,9 +120,9 @@ namespace radio {
     /**
      * Gets the number of remote ticks received
     */
-    //% blockId=radio_fireflyneighbors block="radio firefly remote ticks"
+    //% blockId=radio_fireflyneighbors block="firefly remote ticks"
     //% weight=48
-    export function fireflyRemoteTicks() {
+    export function remoteTicks() {
         init();
         return lastFireflyNeighborsTicks;
     }
