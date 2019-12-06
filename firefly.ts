@@ -87,7 +87,7 @@ namespace firefly {
      * Raise an even the firefly tick is corrected
      */
     //% weight=49
-    //% blockId=radio_onfireflytick block="on firefly correction"
+    //% blockId=radio_onfireflycorrection block="on firefly correction"
     export function onCorrection(handler: () => void) {
         init();
         control.onEvent(RADIO_ID_FIREFLY, RADIO_FIREFLY_CORRECTION_TICK, handler);
