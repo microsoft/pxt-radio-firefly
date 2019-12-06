@@ -1,6 +1,3 @@
-/**
- * Uses radio to synchronize a mesh of devices
- */
 namespace radio {
     const RADIO_ID_FIREFLY = 2100;
     const RADIO_FIREFLY_REMOTE_TICK = 1;
@@ -111,6 +108,7 @@ namespace radio {
      * Gets the tick index in the firefly clock.
      */
     //% blockId=radio_fireflytick blokc="radio firefly tick"
+    //% weight=48
     export function fireflyTick() {
         init();
         return fireflyTicks;

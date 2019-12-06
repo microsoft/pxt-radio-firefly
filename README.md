@@ -5,14 +5,35 @@ devices together.
 
 ## Usage
 
-### ``onFirefly`` 
+### ``onFireflySync`` 
 
-Use the ``radio.onFireflySync`` event to register code that
-will run synchronized
+Use the ``radio.onFireflySync`` event that is raised
+on each clock cycle.
 
 ```blocks
 radio.onFireflySync(function () {
-    console.log('ping')
+    console.log('sync')
+})
+```
+
+### ``onFireflyTick`` 
+
+Use the ``radio.onFireflyTick`` event to run on each tick
+
+```blocks
+radio.onFireflyTick(function () {
+    console.log('tick')
+})
+```
+
+### ``onFireflyTick`` 
+
+Use the ``radio.onFireflyCorrection`` event to run 
+when a tick correction was applied
+
+```blocks
+radio.onFireflyCorrection(function () {
+    console.log('correction')
 })
 ```
 
