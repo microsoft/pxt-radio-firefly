@@ -76,7 +76,7 @@ namespace firefly {
     }
 
     /**
-     * Raises when an internal tick is raised
+     * Raise an event when an internal tick is raised
      */
     //% weight=49
     //% blockId=radio_onfireflytick block="on firefly tick"
@@ -86,7 +86,7 @@ namespace firefly {
     }
 
     /**
-     * Raise an even the firefly tick is corrected
+     * Raise an event when the firefly tick is corrected
      */
     //% weight=49
     //% blockId=radio_onfireflycorrection block="on firefly correction"
